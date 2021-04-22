@@ -1,48 +1,68 @@
 const express = require('express');
-const PORT = process.env.PORT || 3001;
+const fs = require('fs')
+var uniqid = require('uniqid');
+const notes = require('./db/db.json')
+const path = require('path')
 const app = express();
+const PORT = process.env.PORT || 3001;
+
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 
-const notes = require('./db/db.json')
+app.use(express.static('public'));
 
-// get notes
-app.get('/api/notes', (req, res) => {
-    // let results = notes
-    console.log(req.query)
-    res.json(notes)
+// HMTL Routes
+app.get('/', (req,res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/notes', (req,res) => {
+  res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join( __dirname, './public/index.html'))
 })
 
+//API CALLS
 
-// on click, get notes by id
+app.get("/api/notes", function(req, res){
+  res.json(notesData);
+});
+
 app.get('/api/notes/:id', (req, res) => {
-    const result = findById(req.params.id, notes);
-    if (result) {
-        res.json(result);
-      } else {
-        res.send(404);
-      }
-  });
+  const result = findById(req.params.id, notes);
+  if (result) {
+      res.json(result);
+    } else {
+      res.send(404);
+    }
+});
 
-  function findById(id, notes) {
-    const result = notes.filter(notes => notes.id === id)[0];
-    return result;
-  }
+function findById(id, notes) {
+  const result = notes.filter(notes => notes.id === id)[0];
+  return result;
+}
 
-  // post notes
+// post notes
 app.post('/api/notes', (req, res) => {
-    req.body.id = notes.length.toString();
-      
-    res.json(req.body);
-  })
-
-  function createNewNote(body) {
-      console.log(body);
-
-      return body;
-  }
+const{title, content} = req.body
+let newNotes ={
+  title,
+  content,
+  id:uniqid()
+}
+notes.push(newNotes);
+console.log(notes)
+fs.writeFileSync(path.join(__dirname, './db/db.json'),
+JSON.stringify(notes)
+)
+  res.json(newNotes);
+  res.status(201);
+})
 
 
 app.listen(PORT, () => {
