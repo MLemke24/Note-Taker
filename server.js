@@ -1,39 +1,44 @@
 const express = require('express');
-const fs = require('fs')
-var uniqid = require('uniqid');
-const notes = require('./db/db.json')
-const path = require('path')
-const app = express();
+
 const PORT = process.env.PORT || 3001;
 
-// parse incoming string or array data
-app.use(express.urlencoded({ extended: true }));
-// parse incoming JSON data
-app.use(express.json());
+const app = express();
 
+const fs = require('fs')
+var uniqid = require('uniqid');
+const path = require('path')
+
+
+const notes = require('./db/db.json')
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static('public'));
 
-// HMTL Routes
+
+// // HMTL Routes
 app.get('/', (req,res) => {
-  res.sendFile(path.join(__dirname, './public/index.html'));
-});
+    res.sendFile(path.join(__dirname, './public/index.html'));
+  });
+  
+  app.get('/notes', (req,res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+  });
+  
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join( __dirname, './public/index.html'))
+  })
 
-app.get('/notes', (req,res) => {
-  res.sendFile(path.join(__dirname, './public/notes.html'));
-});
-
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join( __dirname, './public/index.html'))
-})
 
 //API CALLS
 
 app.get("/api/notes", function(req, res){
-  res.json(notesData);
+  console.log('/api/notes')
+ return res.json(results);
 });
 
-app.get('/api/notes/:id', (req, res) => {
+app.get('/notes/:id', (req, res) => {
   const result = findById(req.params.id, notes);
   if (result) {
       res.json(result);
@@ -42,13 +47,13 @@ app.get('/api/notes/:id', (req, res) => {
     }
 });
 
-function findById(id, notes) {
-  const result = notes.filter(notes => notes.id === id)[0];
-  return result;
-}
+// function findById(id, notes) {
+//   const result = notes.filter(notes => notes.id === id)[0];
+//   return result;
+// }
 
 // post notes
-app.post('/api/notes', (req, res) => {
+app.post('/notes', (req, res) => {
 const{title, content} = req.body
 let newNotes ={
   title,
@@ -63,6 +68,7 @@ JSON.stringify(notes)
   res.json(newNotes);
   res.status(201);
 })
+
 
 
 app.listen(PORT, () => {
