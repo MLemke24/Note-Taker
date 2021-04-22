@@ -1,13 +1,6 @@
 [
-  2,
-  {
-    "title": "test",
-    "text": "test",
-    "id": "0function(prefix, suffix){ return (prefix ? prefix : '') + address + pid + now().toString(36) + (suffix ? suffix : ''); }"
-  },
-  {
-    "title": "test 2",
-    "text": "test 2",
-    "id": "1,[object Object]undefined"
-  }
-]
+    {
+        "title":"Test Title",
+        "text":"Test text"
+    }
+        ]

@@ -32,39 +32,22 @@ app.get('/', (req,res) => {
     res.sendFile(path.join( __dirname, './public/index.html'))
   })
 
-  // post notes
-// app.post('/notes', (req, res) => {
-// const{title, content} = req.body
-// let newNotes ={
-//   title,
-//   content,
-//   id:uniqid()
-// }
-// notes.push(newNotes);
-// console.log(notes)
-// fs.writeFileSync(path.join(__dirname, './db/db.json'),
-// JSON.stringify(notes)
-// )
-//   res.json(newNotes);
-//   res.status(201);
-// })
+  
 
 
-function newNote(body, notesArray) {
-  const newNote = body;
-  if(!Array.isArray(notesArray))
-  notesArray = [];
+function newNote(body, allNotes) {
+  const {title, text} = body
+  let newNotes ={
+    title,
+    text,
+    id:uniqid()
+  }
 
-  if (notesArray.length === 0)
-  notesArray.push(0);
+  allNotes.push(newNotes);
 
-  body.id = notesArray
-
-  notesArray.push(newNote)
-  fs.writeFileSync(
-    path.join(__dirname, './db/db.json'),
-    JSON.stringify(notesArray, null, 2)
-  );
+  fs.writeFileSync(path.join(__dirname, './db/db.json'),
+  JSON.stringify(allNotes)
+  )
     return newNote;
 }
 
@@ -75,8 +58,6 @@ app.post('/api/notes', (req, res) => {
   console.log(newNote)
   res.json(Note)
 });
-
-
 
 
 
@@ -106,3 +87,22 @@ app.listen(PORT, () => {
 //   res.json(newNotes);
 //   res.status(201);
 // })
+
+
+// function newNote(body, notesArray) {
+//   const newNote = body;
+//   if(!Array.isArray(notesArray))
+//   notesArray = [];
+
+//   if (notesArray.length === 0)
+//   notesArray.push(0);
+
+//   body.id = notesArray
+
+//   notesArray.push(newNote)
+//   fs.writeFileSync(
+//     path.join(__dirname, './db/db.json'),
+//     JSON.stringify(notesArray, null, 2)
+//   );
+//     return newNote;
+// }
