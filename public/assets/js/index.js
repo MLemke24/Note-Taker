@@ -25,13 +25,14 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
+
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-  }, console.log(getNotes));
+  },);
 
 const saveNote = (note) =>
   fetch('/api/notes', {
@@ -179,3 +180,4 @@ if (window.location.pathname === '/notes') {
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
+getAndRenderNotes();
