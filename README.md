@@ -3,7 +3,7 @@
 ## This Repository
 This repository contains a express.js project which allows you to take notes, save them and delete them.
 
-![Image of Sample HTML](https://github.com/MLemke24/Employee-Profile-Generator/blob/main/assets/screencapture-file-Users-matthewlemke-Desktop-Projects-Employee-Profile-Generator-index-html-2021-04-16-21_54_00.jpg?raw=true)
+![Image of First Page](https://github.com/MLemke24/Note-Taker/blob/main/assets/screencapture-lemke-notes-herokuapp-2021-04-23-19_16_59.png)
 
 
 ## Languages Used
