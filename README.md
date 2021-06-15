@@ -13,7 +13,6 @@ This repository contains a express.js project which allows you to take notes, sa
 * Express.js
 
 ## Other Resources Used
-* NPM
 * Heroku
 
 ## About This Project
@@ -22,7 +21,7 @@ This repository contains a express.js project which allows you to take notes, sa
 * Once you begin to write a note, a save button will appear on the upper right.
 * You can also click the trashcan to delete notes
 
-
+[Link To Application](https://lemke-notes.herokuapp.com/)
 
 ##  Contact Me Here
 Matthew Lemke: Mattrlemke@gmail.com
